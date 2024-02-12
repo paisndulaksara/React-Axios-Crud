@@ -1,6 +1,5 @@
  // src/pages/UsersPage.tsx
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; 
 import { getUsers, deleteUser, createUser, updateUser } from '../api/users';
 
 const UsersPage: React.FC = () => {
@@ -74,9 +73,7 @@ const UsersPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8" style={{ background: 'linear-gradient(to bottom right, #4F46E5, #843CF6)' }}>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold text-white">Users</h1>
-        <Link to="/create-user" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Create User
-        </Link>
+       
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {users.map((user: any) => (
