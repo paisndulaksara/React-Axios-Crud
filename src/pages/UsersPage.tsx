@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
  // src/pages/UsersPage.tsx
 import React, { useState, useEffect } from 'react'; 
 import { getUsers, deleteUser, createUser, updateUser } from '../api/users';
+import { Link } from 'react-router-dom';
+
 
 const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -75,9 +78,10 @@ const UsersPage: React.FC = () => {
         <h1 className="text-3xl font-bold text-white">Users</h1>
        
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {users.map((user: any) => (
-          <div key={user.id} className="bg-white rounded-lg shadow-md p-4">
+           <Link key={user.id} to={`/users/${user.id}`} className="bg-white rounded-lg shadow-md p-4">
             <h2 className="text-xl font-semibold">{user.name}</h2>
             <p className="text-gray-600">Username: {user.username}</p>
             <p className="text-gray-600">Email: {user.email}</p>
@@ -86,8 +90,9 @@ const UsersPage: React.FC = () => {
             <p className="text-gray-600">Website: {user.website}</p> 
             <button onClick={() => handleDeleteUser(user.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
             <button onClick={() => openUpdatePopup(user.id, user.name, user.email)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 ml-2">Update</button>
-          </div>
+          </Link>
         ))}
+        
         <div className="bg-white rounded-lg shadow-md p-4">
           <h2 className="text-xl font-semibold">Create New User</h2>
           <div className="mb-4">

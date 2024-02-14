@@ -1,7 +1,15 @@
+/* Importing the `axios` library, which is a popular
+JavaScript library used for making HTTP requests. */
 import axios from 'axios';
 
+
+/* const apiUrl is assigning the value of the environment
+variable `VITE_API_URL` to the `apiUrl` constant. */
 const apiUrl = import.meta.env.VITE_API_URL;
 
+/**
+ The getUsers function is returning the data from the API response.
+ */
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${apiUrl}/users`);
@@ -13,6 +21,10 @@ export const getUsers = async () => {
 };
 
 
+/**
+ * The function `getUserDetails` is an asynchronous function that fetches user details from an API
+ * using the provided user ID.
+ */
 export const getUserDetails = async (userId: string) => {
   try {
     const response = await axios.get(`${apiUrl}/users/${userId}`);
@@ -23,6 +35,10 @@ export const getUserDetails = async (userId: string) => {
   }
 };
 
+/**
+ * The function `createUser` is an asynchronous function that sends a POST request to create a new user
+ * with the provided user data, and returns the response data.
+ */
 export const createUser = async (userData: { name: string, email: string }) => {
   try {
     const response = await axios.post(`${apiUrl}/users`, userData);
@@ -33,7 +49,10 @@ export const createUser = async (userData: { name: string, email: string }) => {
   }
 };
 
-
+/**
+ * The function `updateUser` updates a user's data by making a PUT request to the API endpoint with the
+ * provided user ID and user data.
+ */
 export const updateUser = async (userId: number, userData: { name: string; email: string }) => {
   try {
     const response = await axios.put(`${apiUrl}/users/${userId}`, userData);
@@ -44,7 +63,9 @@ export const updateUser = async (userId: number, userData: { name: string; email
   }
 };
 
-
+/**
+ * The deleteUser function deletes a user with the specified userId 
+ */
 export const deleteUser = async (userId: number) => {
   try {
     await axios.delete(`${apiUrl}/users/${userId}`);
