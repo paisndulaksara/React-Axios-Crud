@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/pages/UserDetailsPage.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserDetails } from '../api/users';
 
 const UserDetailsPage: React.FC = () => {
+  //  const { userId } = useParams<{ userId: string }>();` is using the `useParams` hook from React
+  // Router to get the value of the `userId` parameter from the URL. It is destructuring the value from
+  // the returned object and assigning it to the `userId` variable.  
   const { userId } = useParams<{ userId: string }>();
   const [user, setUser] = useState<any | null>(null);
 
+ {/* The `useEffect` hook is used to perform side effects in functional components. In this case, it is
+ used to fetch the user details from the API when the `userId` changes. */}
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (!userId) {
@@ -24,6 +30,7 @@ const UserDetailsPage: React.FC = () => {
   }, [userId]);
 
   return (
+    
     <div className="bg-gradient-to-br from-blue-500 to-purple-500 min-h-screen flex items-center justify-center">
       <div className="container mx-auto px-4 py-8">
         {user ? (

@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 
 const UsersPage: React.FC = () => {
+
+ /* These lines of code are using the `useState` hook from React to declare and initialize state
+ variables in a functional component. */
   const [users, setUsers] = useState<any[]>([]);
   const [newUserName, setNewUserName] = useState('');
   const [newUserEmail, setNewUserEmail] = useState('');
@@ -13,6 +16,9 @@ const UsersPage: React.FC = () => {
   const [updatedName, setUpdatedName] = useState('');
   const [updatedEmail, setUpdatedEmail] = useState('');
 
+  /* The `useEffect` hook is used to perform side effects in functional components. In this case, it is
+  used to fetch the users data from the server and update the state variable `users` with the
+  fetched data. */
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -26,6 +32,12 @@ const UsersPage: React.FC = () => {
     fetchUsers();
   }, []);
 
+ /**
+  * The function `handleDeleteUser` deletes a user with the specified ID and updates the list of users
+  * accordingly, while also logging any errors that occur.
+  * @param {number} userId - The `userId` parameter is a number that represents the unique identifier
+  * of the user that needs to be deleted.
+  */
   const handleDeleteUser = async (userId: number) => {
     try {
       await deleteUser(userId);
@@ -36,6 +48,10 @@ const UsersPage: React.FC = () => {
     }
   };
 
+ /**
+  * The function `handleCreateUser` creates a new user, adds it to the list of users, and logs the
+  * success message, or logs an error message if there is an error.
+  */
   const handleCreateUser = async () => {
     try {
       const newUser = await createUser({ name: newUserName, email: newUserEmail });
@@ -48,6 +64,10 @@ const UsersPage: React.FC = () => {
     }
   };
 
+ /**
+  * The function `handleUpdateUser` updates a user's name and email in a list of users and logs a
+  * success message if the update is successful, or logs an error message if there is an error.
+  */
   const handleUpdateUser = async () => {
     try {
       if (selectedUserId && updatedName && updatedEmail) {
@@ -66,6 +86,16 @@ const UsersPage: React.FC = () => {
     }
   };
 
+ /**
+  * The function "openUpdatePopup" takes in a user ID, name, and email as parameters and updates the
+  * selected user ID, name, and email in the state.
+  * @param {number} userId - The userId parameter is of type number and represents the unique
+  * identifier of a user.
+  * @param {string} userName - The `userName` parameter is a string that represents the name of the
+  * user.
+  * @param {string} userEmail - The userEmail parameter is a string that represents the email of a
+  * user.
+  */
   const openUpdatePopup = (userId: number, userName: string, userEmail: string) => {
     setSelectedUserId(userId);
     setUpdatedName(userName);
@@ -80,19 +110,22 @@ const UsersPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {users.map((user: any) => (
-           <Link key={user.id} to={`/users/${user.id}`} className="bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-xl font-semibold">{user.name}</h2>
-            <p className="text-gray-600">Username: {user.username}</p>
-            <p className="text-gray-600">Email: {user.email}</p>
-            <p className="text-gray-600">Address: {user.address ? `${user.address.street}, ${user.address.city}, ${user.address.zipcode}` : 'N/A'}</p>
-            <p className="text-gray-600">Phone: {user.phone}</p>
-            <p className="text-gray-600">Website: {user.website}</p> 
-            <button onClick={() => handleDeleteUser(user.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
-            <button onClick={() => openUpdatePopup(user.id, user.name, user.email)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 ml-2">Update</button>
-          </Link>
-        ))}
+    {/* /* The code you provided is mapping over an array of `users` and rendering a JSX element for each
+    user.  */}
+      {users.map((user: any) => (
+    <Link key={user.id} to={`/users/${user.id}`} className="bg-white rounded-lg shadow-md p-4">
+      <h2 className="text-xl font-semibold">{user.name}</h2>
+      <p className="text-gray-600">Username: {user.username}</p>
+      <p className="text-gray-600">Email: {user.email}</p>
+      <p className="text-gray-600">Address: {user.address ? `${user.address.street}, ${user.address.city}, ${user.address.zipcode}` : 'N/A'}</p>
+      <p className="text-gray-600">Phone: {user.phone}</p>
+      <p className="text-gray-600">Website: {user.website}</p>
+      <button onClick={(e) => { e.preventDefault(); handleDeleteUser(user.id); }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
+      <button onClick={(e) => { e.preventDefault(); openUpdatePopup(user.id, user.name, user.email); }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 ml-2">Update</button>
+    </Link>
+  ))}
         
+       {/* /* The code you provided is rendering a form to create a new user. **/}
         <div className="bg-white rounded-lg shadow-md p-4">
           <h2 className="text-xl font-semibold">Create New User</h2>
           <div className="mb-4">
@@ -106,6 +139,9 @@ const UsersPage: React.FC = () => {
           <button onClick={handleCreateUser} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create User</button>
         </div>
       </div>
+      
+    {/* /* The code you provided is conditionally rendering a modal component for updating a user's
+    information.  */}
       {selectedUserId !== null && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg shadow-md p-6">
